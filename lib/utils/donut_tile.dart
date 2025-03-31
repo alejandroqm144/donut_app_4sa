@@ -86,23 +86,17 @@ class DonutTile extends StatelessWidget {
               ),
             ),
 
-            // Add Bottom
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Text('Add',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    decoration: TextDecoration.underline),
-                    ),
-                ),
-              ],
-            ),
-
             //Icons
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                Icon(Icons.favorite_border, color: Colors.pink[800]),
+                Icon(Icons.add,
+                color: Colors.grey[800]),
+              ],),
+            )
 
           ],),
       ),
