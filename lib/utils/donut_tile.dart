@@ -93,11 +93,13 @@ class DonutTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 Icon(Icons.favorite_border, color: Colors.pink[800]),
-                Icon(Icons.add,
-                color: Colors.grey[800]),
+                Text('Add',
+                   style: const TextStyle(
+                     fontWeight: FontWeight.bold,
+                     fontSize: 20,
+                     decoration: TextDecoration.underline))
               ],),
             )
-
           ],),
       ),
     );
