@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:donut_app_4sa/providers/cart_provider.dart';
 
-class BurgerTile extends StatelessWidget {
-  final String burgerFlavor;
-  final String burgerPrice;
-  final String burgerBrand;
+class PancakeTile extends StatelessWidget {
+  final String pancakeFlavor;
+  final String pancakePrice;
+  final String pancakeBrand;
   // dynamic porque será de tipo color
-  final dynamic burgerColor;
-  final String burgerImageName;
+  final dynamic pancakeColor;
+  final String pancakeImageName;
 
-  const BurgerTile(
+  const PancakeTile(
       {super.key,
-      required this.burgerFlavor,
-      required this.burgerPrice,
-      required this.burgerColor,
-      required this.burgerBrand,
-      required this.burgerImageName});
+      required this.pancakeFlavor,
+      required this.pancakePrice,
+      required this.pancakeColor,
+      required this.pancakeBrand,
+      required this.pancakeImageName});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class BurgerTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: burgerColor[50],
+          color: pancakeColor[50],
           borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
@@ -39,7 +39,7 @@ class BurgerTile extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: burgerColor[100],
+                    color: pancakeColor[100],
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -48,11 +48,11 @@ class BurgerTile extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                   child: Text(
-                    '\$$burgerPrice',
+                    '\$$pancakePrice',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: burgerColor[800],
+                      color: pancakeColor[800],
                     ),
                   ),
                 ),
@@ -64,8 +64,8 @@ class BurgerTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Image.asset(
-                  burgerImageName,
-                  fit: BoxFit.contain,
+                  pancakeImageName,
+                  fit: BoxFit.contain, // Ajusta la imagen sin deformar
                 ),
               ),
             ),
@@ -76,14 +76,14 @@ class BurgerTile extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    burgerFlavor,
+                    pancakeFlavor,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    burgerBrand,
+                    pancakeBrand,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -118,20 +118,20 @@ class BurgerTile extends StatelessWidget {
                           Provider.of<CartProvider>(context, listen: false);
                       cartProvider.toggleItem(
                         CartItem(
-                          name: burgerFlavor,
-                          brand: burgerBrand,
-                          price: double.parse(burgerPrice),
+                          name: pancakeFlavor,
+                          brand: pancakeBrand,
+                          price: double.parse(pancakePrice),
                         ),
                       );
                     },
                     child: Text(
                       Provider.of<CartProvider>(context)
-                              .isItemInCart(burgerFlavor, burgerBrand)
+                              .isItemInCart(pancakeFlavor, pancakeBrand)
                           ? 'Remove (${Provider.of<CartProvider>(context).itemCount})'
                           : 'Add',
                       style: TextStyle(
                         color: Provider.of<CartProvider>(context)
-                                .isItemInCart(burgerFlavor, burgerBrand)
+                                .isItemInCart(pancakeFlavor, pancakeBrand)
                             ? Colors.red
                             : Colors.black,
                       ),

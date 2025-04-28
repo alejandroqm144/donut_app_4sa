@@ -1,17 +1,21 @@
 
 
-import 'package:donut_app_4sa/utils/donut_tile.dart';
+import 'package:donut_app_4sa/utils/pancakes_tile.dart';
 import 'package:flutter/material.dart';
 
 class PancakesTab extends StatelessWidget {
 
-  //list of donuts
-  final List donutsOnSale = [
-    // [ donutFlavor, donutBrand, donutPrice, donutColor, imageName ]
-    ["Ice Cream", "Kryspy Kreme", "36", Colors.blue, "lib/images/icecream_donut.png"],
-    ["Strawberry", "Littlebaby Donut's", "45", Colors.red, "lib/images/strawberry_donut.png"],
-    ["Grape Ape", "Black Donut's" ,"84", Colors.purple, "lib/images/grape_donut.png"],
-    ["Choco", "Dunkin Donut's", "95", Colors.brown, "lib/images/chocolate_donut.png"],
+  //list of pancakes
+  final List pancakesOnSale = [
+    // [ pancakeFlavor, pancakeBrand, pancakePrice, pancakeColor, pancakeImageName ]
+    ["Apple", "Nico's Brunch", "36", Colors.blue, "lib/images/pancake/pancake-1.jpg"],
+    ["Normal", "Señor Mollete", "44", Colors.red, "lib/images/pancake/pancake-2.jpg"],
+    ["Oatmeal", "Marmalade Centro" ,"52", Colors.purple, "lib/images/pancake/pancake-3.jpg"],
+    ["Lemon", "Crepa IN", "33", Colors.brown, "lib/images/pancake/pancake-4.jpg"],
+    ["Choco", "Vous Amour's", "48", Colors.green, "lib/images/pancake/pancake-5.jpg"],
+    ["Pumpkin", "Bonjus", "39", Colors.yellow, "lib/images/pancake/pancake-6.jpg"],
+    ["Choco", "Vous Amour's", "55", Colors.blue, "lib/images/pancake/pancake-7.jpg"],
+    ["Pumpkin", "Bonjus", "42", Colors.red, "lib/images/pancake/pancake-8.jpg"],
   ];
     
   PancakesTab({super.key});
@@ -26,16 +30,16 @@ class PancakesTab extends StatelessWidget {
         // Proporción entre alto y ancho
         childAspectRatio: 1/1.6),
       // Cuántos elementos
-      itemCount: 4,
+      itemCount: 8,
       padding: const EdgeInsets.all(12),
       // Qué elemento se construirá
       itemBuilder: (context, index) {
-        return DonutTile(
-          donutFlavor: donutsOnSale[index][0],
-          donutBrand: donutsOnSale[index][1],
-          donutPrice: donutsOnSale[index][2],
-          donutColor: donutsOnSale[index][3],
-          imageName: donutsOnSale[index][4],
+        return PancakeTile(
+          pancakeFlavor: pancakesOnSale[index][0],
+          pancakeBrand: pancakesOnSale[index][1],
+          pancakePrice: pancakesOnSale[index][2],
+          pancakeColor: pancakesOnSale[index][3],
+          pancakeImageName: pancakesOnSale[index][4],
         );
       });
   }

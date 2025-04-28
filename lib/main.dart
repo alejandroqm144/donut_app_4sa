@@ -2,9 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:donut_app_4sa/Pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app_4sa/providers/cart_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) =>
+          CartProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -3,6 +3,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app_4sa/providers/cart_provider.dart';
 
 class DonutTile extends StatelessWidget {
   final String donutFlavor;
@@ -10,7 +12,7 @@ class DonutTile extends StatelessWidget {
   final String donutBrand;
   // dynamic porque será de tipo color
   final dynamic donutColor;
-  final String imageName;
+  final String donutImageName;
 
   const DonutTile(
       {super.key,
@@ -18,118 +20,126 @@ class DonutTile extends StatelessWidget {
       required this.donutPrice,
       required this.donutColor,
       required this.donutBrand,
-      required this.imageName});
+      required this.donutImageName});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
-        // color: donutColor[50]
         decoration: BoxDecoration(
-            color: donutColor[50],
-            // Esquinas redondeadas
-            borderRadius: BorderRadius.circular(24)),
+          color: donutColor[50],
+          borderRadius: BorderRadius.circular(24),
+        ),
         child: Column(
           children: [
+            // Precio en la esquina superior derecha
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: donutColor[100],
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(24),
-                        topRight: Radius.circular(24)),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
                   ),
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                   child: Text(
                     '\$$donutPrice',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: donutColor[800]),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: donutColor[800],
+                    ),
                   ),
                 ),
               ],
             ),
 
-            //Donut price
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-              ).copyWith(
-                bottom: 12,
-                top: 8,
+            // Imagen centrada con espacio proporcional
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Image.asset(
+                  donutImageName,
+                  fit: BoxFit.contain, // Ajusta la imagen sin deformar
+                ),
               ),
-              child: Image.asset(imageName),
             ),
 
-            //Donut flavor text
+            // Nombre y marca debajo de la imagen
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                donutFlavor,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    donutFlavor,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    donutBrand,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            // Nombre de la marca (Brand Text)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Text(
-                donutBrand,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-
-            //Icons
+            // Botones ("Add" y corazón) en la parte inferior
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  // Botón del corazón
+                children: [
+                  // Botón de favoritos (corazón)
                   IconButton(
-                      onPressed: () {
-                        print('Producto agregado a Favoritos');
-                      },
-                      icon:
-                          Icon(Icons.favorite_border, color: Colors.pink[800])),
-
-                  // Botón 'Add'
-                  TextButton(
                     onPressed: () {
-                      print('Producto agregado al carrito');
+                      print('Producto agregado a Favoritos');
                     },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text(
-                      'Add',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        decoration: TextDecoration.underline,
-                        color: Colors.black, // Color del texto (ajústalo)
-                      ),
+                    icon: Icon(
+                      Icons.favorite_border,
+                      color: Colors.pink[800],
                     ),
                   ),
 
-                  //
+                  // Botón "Add"
+                  TextButton(
+                    onPressed: () {
+                      final cartProvider =
+                          Provider.of<CartProvider>(context, listen: false);
+                      cartProvider.toggleItem(
+                        CartItem(
+                          name: donutFlavor,
+                          brand: donutBrand,
+                          price: double.parse(donutPrice),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      Provider.of<CartProvider>(context)
+                              .isItemInCart(donutFlavor, donutBrand)
+                          ? 'Remove (${Provider.of<CartProvider>(context).itemCount})'
+                          : 'Add',
+                      style: TextStyle(
+                        color: Provider.of<CartProvider>(context)
+                                .isItemInCart(donutFlavor, donutBrand)
+                            ? Colors.red
+                            : Colors.black,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
